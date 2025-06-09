@@ -1,4 +1,4 @@
-#include "../../../includes/interface/Textbox.h"
+#include "../../includes/interface/Textbox.h"
 
 //& Resources
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,8 +26,8 @@ TextBox::TextBox(const String text, const unsigned int size, const String font)
 
     //? @note: initialize rectangle
     mRectangle.setSize(Vector2f{static_cast<float>(mText.getString().getSize() * mText.getCharacterSize()) * 1.5f, static_cast<float>(mText.getCharacterSize() * 1.75f)});
-    mRectangle.setOrigin(Vector2f{mRectangle.getSize().x / 2.f, mRectangle.getSize().y / 2.f});
-    mRectangle.setPosition(Vector2f{static_cast<float>(DISPLAY.width) / 2.f, static_cast<float>(DISPLAY.height) / 2.f});
+    mRectangle.setOrigin(mRectangle.getSize() / 2.f);
+    mRectangle.setPosition(DISPLAY.width / 2.f, DISPLAY.height / 2.f);
 
     mRectangle.setFillColor(DarkGray);
     mRectangle.setOutlineColor(Transparent);
