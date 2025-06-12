@@ -12,6 +12,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/OpenGL.hpp>
+#include <utility>
+#include <vector>
 using namespace std;
 using namespace sf;
 

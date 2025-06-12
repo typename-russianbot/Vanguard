@@ -1,12 +1,15 @@
 #include "../includes/interface/Button.h"
+#include "../includes/interface/Panel.h"
 
 //~ @fn: testbench(void)
 int testbench(void)
 {
-    //? note: view is very important for moving it across a subsection of a map
 
+    //! Testing Block - @vars
     View view;
-    Button button{"Button", 38};
+    Panel panel(Vector2f{1200, 800});
+    Button button{"Button", 35};
+    panel.add(&button);
 
     //& RenderWindow
     RenderWindow window(DISPLAY, "RenderWindow - window");
@@ -27,7 +30,8 @@ int testbench(void)
             {
                 switch (event.key.code)
                 {
-                case Keyboard::Escape: //! @def: escape pressed -- exit window
+                //! @note: window exit
+                case Keyboard::Escape:
                     window.close();
                 default:
                     break;
@@ -50,12 +54,11 @@ int testbench(void)
                     break;
                 }
             }
-
             button.hover(mousePos);
         }
 
         window.clear(Tan);
-        window.draw(button);
+        window.draw(panel);
         window.display();
     }
     return 0;

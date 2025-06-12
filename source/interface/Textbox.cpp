@@ -5,7 +5,7 @@
 //* @public: TextBox(const Vector2f, const string)
 //* @def: Constructor
 
-TextBox::TextBox(const String text, const unsigned int size, const String font)
+Textbox::Textbox(const String text, const unsigned int size, const String font)
     : mVisible(true)
 {
     //? @note: initialize font
@@ -30,7 +30,7 @@ TextBox::TextBox(const String text, const unsigned int size, const String font)
     mRectangle.setPosition(DISPLAY.width / 2.f, DISPLAY.height / 2.f);
 
     mRectangle.setFillColor(DarkGray);
-    mRectangle.setOutlineColor(Transparent);
+    mRectangle.setOutlineColor(Black);
     mRectangle.setOutlineThickness(3.f);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@ TextBox::TextBox(const String text, const unsigned int size, const String font)
 //* @public: TextBox(const TextBox&)
 //* @def: Copy Constructor
 
-TextBox::TextBox(const TextBox &textbox)
+Textbox::Textbox(const Textbox &textbox)
     : mRectangle(textbox.mRectangle), mFont(textbox.mFont), mText(textbox.mText), mVisible(textbox.mVisible)
 {
     return;
@@ -48,18 +48,18 @@ TextBox::TextBox(const TextBox &textbox)
 //* @public: ~TextBox(void)
 //* @def: Destructor
 
-TextBox::~TextBox(void)
+Textbox::~Textbox(void)
 {
     return;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//& Public Functions
+//& Functions
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* @public: move(const Vector2f)
 //* @def: moves textbox
 
-void TextBox::move(const Vector2f offset)
+void Textbox::move(const Vector2f offset)
 {
     //? @note: move all components of textbox
     mText.move(offset);
@@ -72,7 +72,7 @@ void TextBox::move(const Vector2f offset)
 //* @public: resize(const unsigned int)
 //* @def: resizes textbox
 
-void TextBox::resize(const unsigned int size)
+void Textbox::resize(const unsigned int size)
 {
     //? @note: resize & reset origin of our text
     mText.setCharacterSize(size);
@@ -89,12 +89,38 @@ void TextBox::resize(const unsigned int size)
 //* @public: contains(const Vector2f)
 //* @def: returns true if mousePos is within textbox, false otherwise
 
-bool TextBox::contains(const Vector2f mousePos)
+bool Textbox::contains(const Vector2f mousePos)
 {
     if (mRectangle.getGlobalBounds().contains(mousePos) && mVisible)
         return true;
 
     return false;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//* @public: visible(const bool)
+//* @def: sets the visibility of the drawable, depending on the flag
+
+void Textbox::visible(const bool flag)
+{
+    //? @note: show drawable
+    if (flag)
+        mVisible = flag;
+
+    //? @note: hide drawable
+    else
+        mVisible = flag;
+
+    return;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//* @public: isVisible(void)
+//* @def: returns the current visibility state
+
+bool Textbox::isVisible(void)
+{
+    return mVisible;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -103,7 +129,7 @@ bool TextBox::contains(const Vector2f mousePos)
 //* @public: setText(const String)
 //* @def: sets text
 
-void TextBox::setText(const String text)
+void Textbox::setText(const String text)
 {
     mText.setString(text);
     resize(mText.getCharacterSize());
@@ -112,22 +138,14 @@ void TextBox::setText(const String text)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* @public: setVisible(void)
-//* @def: sets textbox visible
+//* @public: setPosition(const Vector2f)
+//* @def: sets drawables position
 
-void TextBox::setVisible(void)
+void Textbox::setPosition(const Vector2f pos)
 {
-    mVisible = true;
-    return;
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* @public: setHidden(void)
-//* @def: sets textbox hidden
+    mRectangle.setPosition(pos);
+    mText.setPosition(pos);
 
-void TextBox::setHidden(void)
-{
-    mVisible = false;
     return;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -135,7 +153,7 @@ void TextBox::setHidden(void)
 //* @public: setFillColor(const Color)
 //* @def: sets rectangle color
 
-void TextBox::setColor(const Color color)
+void Textbox::setColor(const Color color)
 {
     mRectangle.setFillColor(color);
     return;
@@ -145,7 +163,7 @@ void TextBox::setColor(const Color color)
 //* @public: setOutlineColor(const color)
 //* @def: sets rectangle outline color
 
-void TextBox::setOutlineColor(const Color color)
+void Textbox::setOutlineColor(const Color color)
 {
     mRectangle.setOutlineColor(color);
     return;
@@ -155,7 +173,7 @@ void TextBox::setOutlineColor(const Color color)
 //* @public: setTextColor(const color)
 //* @def: sets text color
 
-void TextBox::setTextColor(const Color color)
+void Textbox::setTextColor(const Color color)
 {
     mText.setFillColor(color);
     return;
@@ -165,7 +183,7 @@ void TextBox::setTextColor(const Color color)
 //* @public: setTextOutlineColor(const Color)
 //* @def: sets text outline color
 
-void TextBox::setTextOutlineColor(const Color color)
+void Textbox::setTextOutlineColor(const Color color)
 {
     mText.setOutlineColor(color);
     return;
@@ -174,64 +192,73 @@ void TextBox::setTextOutlineColor(const Color color)
 
 //& Accessors
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//* @public: isVisible(void)
-//* @def:
+//* @public: getText(void)
+//* @def: returns text of drawable
 
-const bool TextBox::isVisible(void) const
+const String Textbox::getText(void) const
 {
-    return mVisible;
+    return mText.getString();
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//* @public: getPosition(void)
+//* @def: returns drawables position
+
+const Vector2f Textbox::getPosition(void) const
+{
+    return mRectangle.getPosition();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* @public: getColor(void)
-//* @def:
+//* @def: returns rectangle fill color
 
-const Color TextBox::getColor(void) const
+const Color Textbox::getColor(void) const
 {
     return mRectangle.getFillColor();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* @public: getOutlineColor(void)
-//* @def:
+//* @def: returns rectangle outline color
 
-const Color TextBox::getOutlineColor(void) const
+const Color Textbox::getOutlineColor(void) const
 {
     return mRectangle.getOutlineColor();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* @public: getOutlineThickness(void)
-//* @def:
+//* @def: returns rectangle outline thickness
 
-const float TextBox::getOutlineThickness(void) const
+const float Textbox::getOutlineThickness(void) const
 {
     return mRectangle.getOutlineThickness();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* @public: getTextColor(void)
-//* @def:
+//* @def: returns text fill color
 
-const Color TextBox::getTextColor(void) const
+const Color Textbox::getTextColor(void) const
 {
     return mText.getFillColor();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* @public: getTextOutlineColor(void)
-//* @def:
+//* @def: returns text outline color
 
-const Color TextBox::getTextOutlineColor(void) const
+const Color Textbox::getTextOutlineColor(void) const
 {
     return mText.getOutlineColor();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //* @public: getTextOutlineThickness(void)
-//* @def:
+//* @def: returns text outline thickness
 
-const float TextBox::getTextOutlineThickness(void) const
+const float Textbox::getTextOutlineThickness(void) const
 {
     return mText.getOutlineThickness();
 }

@@ -1,7 +1,8 @@
+#include "Textbox.h"
 #pragma once
-#include "../master.h"
 
 //~ @class: Panel
+//? @note: add some sort of out of bounds detection,
 class Panel : public Drawable
 {
 private:
@@ -9,41 +10,74 @@ private:
     RectangleShape mBackground;
     Vector2f mPosition;
     vector<pair<Drawable *, Vector2f>> mChildren;
-    //? add a sprite in future
 
     //& Flags
     bool mVisible;
 
-    //& Private Functions
+public:
+    //& Resources
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //* @public: Constructor
+    Panel(const Vector2f = {500, 500}, const Vector2f = {DISPLAY.width / 2.f, DISPLAY.height / 2.f}, const Color = DarkRed);
+
+    //* @public: Destructor
+    ~Panel(void);
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //& Functions
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //* @public: draw(RenderTarget&, RenderStates)
     virtual void draw(RenderTarget &target, RenderStates states) const override
     {
         if (mVisible)
         {
             target.draw(mBackground);
 
-            for (const auto &[drawable, offset] : mChildren)
+            for (auto &[drawable, offset] : mChildren)
             {
+                states.transform.translate(offset);
                 target.draw(*drawable, states);
             }
         }
     }
 
-public:
-    //& Resources
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-    //* @public: Constructor
-    Panel(const Vector2f, const Vector2f, const Color);
+    //* @public: move(const Vector2f)
+    void move(const Vector2f);
 
-    //* @public: Copy Constructor
-    Panel(const Panel &);
+    //* @public: resize(const Vector2f)
+    void resize(const Vector2f);
 
-    //* @public: Destructor
-    ~Panel(void);
-    //////////////////////////////////////////////////////////////////////////////////////////////////
+    //* @public: add(Drawable*, Vector2f)
+    void add(Textbox *, Vector2f = {0, 0});
 
-    //& Public Functions
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-    //* @public: add(const Drawable&
+    //* @public: visible(const bool)
+    void visible(const bool);
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////
+    //* @public: isVisible(void)
+    const bool isVisible(void) const;
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //& Mutators
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //* @public: setColor(const Color)
+    void setColor(const Color);
+
+    //* @public: setOutlineColor(const Color)
+    void setOutlineColor(const Color);
+
+    //* @public: setOutlineThickness(const float)
+    void setOutlineThickness(const float);
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //& Accessors
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //* @public: getColor(void)
+    const Color getColor(void) const;
+
+    //* @public: getOutlineColor(void)
+    const Color getOutlineColor(void) const;
+
+    //* @public: getOutlineThickness(void)
+    const float getOutlineThickness(void) const;
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 };
