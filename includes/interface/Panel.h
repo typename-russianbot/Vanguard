@@ -8,7 +8,6 @@ class Panel : public Drawable
 private:
     //& Components
     RectangleShape mBackground;
-    Vector2f mPosition;
     vector<pair<Drawable *, Vector2f>> mChildren;
 
     //& Flags
@@ -48,7 +47,7 @@ public:
     void resize(const Vector2f);
 
     //* @public: add(Drawable*, Vector2f)
-    void add(Textbox *, Vector2f = {0, 0});
+    void add(Drawable *, Vector2f = {0, 0});
 
     //* @public: visible(const bool)
     void visible(const bool);

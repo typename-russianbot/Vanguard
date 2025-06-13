@@ -5,7 +5,7 @@
 //* @public: Panel(void)
 //* @def: Constructor
 
-Panel::Panel(const Vector2f size, const Vector2f pos, const Color color) : mBackground(size)
+Panel::Panel(const Vector2f size, const Vector2f pos, const Color color) : mBackground(size), mVisible(true)
 {
     mBackground.setOrigin(mBackground.getSize() / 2.f);
     mBackground.setPosition(pos);
@@ -55,10 +55,10 @@ void Panel::resize(const Vector2f size)
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////
-//* @public: add(const Drawable&, const Vector2f)
+//* @public: add(Drawable*, Vector2f)
 //* @def: adds a new drawable to the panel
 
-void Panel::add(Textbox *drawable, Vector2f offset)
+void Panel::add(Drawable *drawable, Vector2f offset)
 {
     //? @note: push drawable to the back of the vector
     mChildren.push_back({drawable, offset});

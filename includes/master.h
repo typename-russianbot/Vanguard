@@ -1,9 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //? @author: Matthew J. Hong
-//? @brief: Vanguard is a game engine using SFML for drawing/rendering our 2D objects
+//? @brief: Vanguard is an engine built in SFML to handle input detection, draw objects like
+//? textboxes, sliders, panels, buttons, scenes, etc
+//? Textboxes, panels & buttons done
+//? Work on creating scenes/sliders next
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//~ @dependencies:
+//& @dependencies:
 #pragma once
 #include <iostream>
 #include <string.h>
@@ -17,15 +20,16 @@
 using namespace std;
 using namespace sf;
 
-//& @structs:
-
 //& @macros:
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //~ Display
 #define DISPLAY \
     VideoMode { VideoMode::getDesktopMode().width, VideoMode::getDesktopMode().height } //? @var: DISPLAY
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //~ Fonts
 #define SixtyFourConvergence "resources/fonts/SixtyfourConvergence-Regular.ttf" //? @var: SixtyFourConvergence
 #define RubikWetPaint "resources/fonts/RubikWetPaint-Regular.ttf"               //? @var: RubikWetPaint
@@ -33,8 +37,10 @@ using namespace sf;
 #define BungeeSpice "resources/fonts/BungeeSpice-Regular.ttf"                   //? @var: BungeeSpice
 #define Roboto "resources/fonts/Roboto-Regular.ttf"                             //? @var: Roboto
 #define Kadawa "resources/fonts/Kadwa-Regular.ttf"                              //? @var: Kadawa
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 //~ Colors
 #define Transparent Color::Transparent //? @var: Transparent
 #define White Color::White             //? @var: White

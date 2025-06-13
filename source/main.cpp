@@ -4,15 +4,12 @@
 //~ @fn: testbench(void)
 int testbench(void)
 {
-
-    //! Testing Block - @vars
-    View view;
+    //? @vars:
     Panel panel(Vector2f{1200, 800});
-    Button button{"Button", 35};
-    panel.add(&button);
-
-    //& RenderWindow
+    Button exit{"Exit", 35};
+    panel.add(&exit);
     RenderWindow window(DISPLAY, "RenderWindow - window");
+
     while (window.isOpen())
     {
         Vector2f mousePos = window.mapPixelToCoords(Mouse::getPosition(window));
@@ -21,11 +18,11 @@ int testbench(void)
         //& Event Polling
         while (window.pollEvent(event))
         {
-            //! @note: window exit
+            //? @note: Close Window
             if (event.type == event.Closed)
                 window.close();
 
-            //* @note: keyboard input
+            //? @note: Keyboard Input Handler
             if (event.type == event.KeyPressed)
             {
                 switch (event.key.code)
@@ -38,15 +35,16 @@ int testbench(void)
                 }
             }
 
-            //* @note: mouse input
+            //? @note: Mouse Input Handler
             if (event.type == event.MouseButtonPressed)
             {
                 switch (event.mouseButton.button)
                 {
-                case Mouse::Button::Left: //? @def: left click
-                    if (button.contains(mousePos))
+                case Mouse::Button::Left:
+                    if (exit.contains(mousePos))
                     {
-                        // TODO - Add button functionality here
+                        cout << "'exit' was pressed" << endl;
+                        window.close();
                     }
                     break;
 
@@ -54,7 +52,7 @@ int testbench(void)
                     break;
                 }
             }
-            button.hover(mousePos);
+            exit.hover(mousePos);
         }
 
         window.clear(Tan);

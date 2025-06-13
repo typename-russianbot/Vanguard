@@ -1,6 +1,7 @@
 #? GNU
 CXX = g++
 CXX_FLAGS = -std=c++23 -Wall -g 
+SFML = -lsfml-graphics -lsfml-window -lsfml-system
 
 #! FLAGS
 SRC = $(shell find source -name '*.cpp')
@@ -20,7 +21,7 @@ rebuild:
 	make
 
 $(exe): $(OBJ)
-	$(CXX) $(CXX_FLAGS) $(OBJ) -o $(exe) -lsfml-graphics -lsfml-window -lsfml-system
+	$(CXX) $(CXX_FLAGS) $(OBJ) -o $(exe) $(SFML)
 
 build/%.o: source/%.cpp
 	mkdir -p $(dir $@)
